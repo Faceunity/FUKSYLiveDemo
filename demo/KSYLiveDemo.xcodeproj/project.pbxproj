@@ -6,20 +6,6 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		CD6D3B4B21119B8200424000 /* loadSDK */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = CD6D3B4E21119B8200424000 /* Build configuration list for PBXAggregateTarget "loadSDK" */;
-			buildPhases = (
-				CD6D3B4F21119B8B00424000 /* loadSDK */,
-			);
-			dependencies = (
-			);
-			name = loadSDK;
-			productName = loadSDK;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		050C69D61EF80949008C93E3 /* KSYDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 050C69D51EF80949008C93E3 /* KSYDrawingView.m */; };
 		050E1CFC1E76409600653275 /* KSYHorScreenStreamerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 050E1CFB1E76409600653275 /* KSYHorScreenStreamerVC.m */; };
@@ -59,8 +45,6 @@
 		0B223A3D210B01720009E3AB /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B223A3C210B01720009E3AB /* Accelerate.framework */; };
 		0B223A74210B05E90009E3AB /* libnama.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B223A56210B05E90009E3AB /* libnama.a */; };
 		0B223A75210B05E90009E3AB /* release_note.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0B223A57210B05E90009E3AB /* release_note.txt */; };
-		0B223A76210B05E90009E3AB /* anim_model.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0B223A59210B05E90009E3AB /* anim_model.bundle */; };
-		0B223A77210B05E90009E3AB /* ardata_ex.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0B223A5A210B05E90009E3AB /* ardata_ex.bundle */; };
 		0B223A78210B05E90009E3AB /* face_beautification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0B223A5B210B05E90009E3AB /* face_beautification.bundle */; };
 		0B223A79210B05E90009E3AB /* fxaa.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0B223A5C210B05E90009E3AB /* fxaa.bundle */; };
 		0B223A7A210B05E90009E3AB /* v3.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0B223A5D210B05E90009E3AB /* v3.bundle */; };
@@ -138,16 +122,6 @@
 		E3EDA85D1D17BBDA00B54437 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3EDA85C1D17BBDA00B54437 /* Security.framework */; };
 		F296EC001D3527FF001C4120 /* KSYMiscView.m in Sources */ = {isa = PBXBuildFile; fileRef = F296EBFF1D3527FF001C4120 /* KSYMiscView.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		CD6D3B5021119BCC00424000 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 06B2B19B1BE8F0D900E0CC85 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CD6D3B4B21119B8200424000;
-			remoteInfo = loadSDK;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		0B2239D0210AFFC30009E3AB /* Embed Frameworks */ = {
@@ -247,8 +221,6 @@
 		0B223A4D210B05E90009E3AB /* FURenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FURenderer.h; sourceTree = "<group>"; };
 		0B223A56210B05E90009E3AB /* libnama.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libnama.a; sourceTree = "<group>"; };
 		0B223A57210B05E90009E3AB /* release_note.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_note.txt; sourceTree = "<group>"; };
-		0B223A59210B05E90009E3AB /* anim_model.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = anim_model.bundle; sourceTree = "<group>"; };
-		0B223A5A210B05E90009E3AB /* ardata_ex.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = ardata_ex.bundle; sourceTree = "<group>"; };
 		0B223A5B210B05E90009E3AB /* face_beautification.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = face_beautification.bundle; sourceTree = "<group>"; };
 		0B223A5C210B05E90009E3AB /* fxaa.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = fxaa.bundle; sourceTree = "<group>"; };
 		0B223A5D210B05E90009E3AB /* v3.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = v3.bundle; sourceTree = "<group>"; };
@@ -619,8 +591,6 @@
 		0B223A58210B05E90009E3AB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				0B223A59210B05E90009E3AB /* anim_model.bundle */,
-				0B223A5A210B05E90009E3AB /* ardata_ex.bundle */,
 				0B223A5B210B05E90009E3AB /* face_beautification.bundle */,
 				0B223A5C210B05E90009E3AB /* fxaa.bundle */,
 				0B223A5D210B05E90009E3AB /* v3.bundle */,
@@ -750,6 +720,7 @@
 			buildConfigurationList = 06B2B1C91BE8F0D900E0CC85 /* Build configuration list for PBXNativeTarget "KSYLiveDemo" */;
 			buildPhases = (
 				62C477CD10532008D49196E4 /* [CP] Check Pods Manifest.lock */,
+				E3DA487F235FE639007CF6E3 /* unzip */,
 				06B2B19F1BE8F0D900E0CC85 /* Sources */,
 				06B2B1A01BE8F0D900E0CC85 /* Frameworks */,
 				06B2B1A11BE8F0D900E0CC85 /* Resources */,
@@ -760,7 +731,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				CD6D3B5121119BCC00424000 /* PBXTargetDependency */,
 			);
 			name = KSYLiveDemo;
 			productName = KSYLiveDemo;
@@ -805,11 +775,6 @@
 						DevelopmentTeam = ZGJ54Q7R45;
 						ProvisioningStyle = Automatic;
 					};
-					CD6D3B4B21119B8200424000 = {
-						CreatedOnToolsVersion = 10.0;
-						DevelopmentTeam = 35A6KD62ZJ;
-						ProvisioningStyle = Automatic;
-					};
 				};
 			};
 			buildConfigurationList = 06B2B19E1BE8F0D900E0CC85 /* Build configuration list for PBXProject "KSYLiveDemo" */;
@@ -817,6 +782,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -827,7 +793,6 @@
 			targets = (
 				06B2B1A21BE8F0D900E0CC85 /* KSYLiveDemo */,
 				C36493FA1E6E8CA600299E99 /* KSYLiveDemo_Swift */,
-				CD6D3B4B21119B8200424000 /* loadSDK */,
 			);
 		};
 /* End PBXProject section */
@@ -844,7 +809,6 @@
 				06B2B1BA1BE8F0D900E0CC85 /* LaunchScreen.xib in Resources */,
 				0B223A78210B05E90009E3AB /* face_beautification.bundle in Resources */,
 				0B223A93210B09910009E3AB /* yazui.bundle in Resources */,
-				0B223A77210B05E90009E3AB /* ardata_ex.bundle in Resources */,
 				0B223A90210B09910009E3AB /* juanhuzi_lm_fu.bundle in Resources */,
 				0B223A91210B09910009E3AB /* mask_hat.bundle in Resources */,
 				0B223A79210B05E90009E3AB /* fxaa.bundle in Resources */,
@@ -854,7 +818,6 @@
 				0B223A92210B09910009E3AB /* touhua_ztt_fu.bundle in Resources */,
 				0B223A75210B05E90009E3AB /* release_note.txt in Resources */,
 				0B223A94210B09910009E3AB /* yuguan.bundle in Resources */,
-				0B223A76210B05E90009E3AB /* anim_model.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -879,7 +842,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-KSYLiveDemo_Swift/Pods-KSYLiveDemo_Swift-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-KSYLiveDemo_Swift/Pods-KSYLiveDemo_Swift-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GPUImage/GPUImage.framework",
 				"${BUILT_PRODUCTS_DIR}/libksygpulive/libksygpulive.framework",
 			);
@@ -890,7 +853,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KSYLiveDemo_Swift/Pods-KSYLiveDemo_Swift-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KSYLiveDemo_Swift/Pods-KSYLiveDemo_Swift-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5A44C4C600798E189810ADDA /* [CP] Check Pods Manifest.lock */ = {
@@ -935,7 +898,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-KSYLiveDemo/Pods-KSYLiveDemo-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-KSYLiveDemo/Pods-KSYLiveDemo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GPUImage/GPUImage.framework",
 				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
 				"${BUILT_PRODUCTS_DIR}/ZipArchive/ZipArchive.framework",
@@ -950,10 +913,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KSYLiveDemo/Pods-KSYLiveDemo-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KSYLiveDemo/Pods-KSYLiveDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CD6D3B4F21119B8B00424000 /* loadSDK */ = {
+		E3DA487F235FE639007CF6E3 /* unzip */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -962,14 +925,14 @@
 			);
 			inputPaths = (
 			);
-			name = loadSDK;
+			name = unzip;
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#!/bin/sh\ncd KSYLiveDemo/Faceunity\n#解决从github下载后无法通过 open -a Terminal 指令打开loadSDK.sh的问题\nshname=loadSDK.sh\ncat $shname > load.sh\nmv -f load.sh $shname\nchmod +x $shname\n\ncd FaceUnity-SDK-iOS\nfilename=libnama.a\n#如果libnama.a不存在，直接下载\nif ! [ -f \"$filename\" ]\nthen\nopen -a Terminal ../loadSDK.sh\nelse \nfilesize=`ls -l $filename | awk '{ print $5 }'`\nmaxsize=$((1024*1024))\n#如果文件小于1M，则检索文件内容是否包含git-lfs字段\nif [ $filesize -lt $maxsize ]\nthen\ngrep -q \"version https://git-lfs.github.com/\" $filename\nif [ $? -eq 0 ];then\nopen -a Terminal ../loadSDK.sh\nfi\nfi\nfi\n\n# Type a script or drag a script file from your workspace to insert its path.\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#!/bin/sh/\ncd KSYLiveDemo/FaceUnity/FaceUnity-SDK-iOS\nfilename=libnama.a\nzipname=libnama.zip\n\nif [ -f \"$zipname\" ];\nthen\nrm -f $filename\nunzip $zipname\nrm -f $zipname\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1070,14 +1033,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		CD6D3B5121119BCC00424000 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CD6D3B4B21119B8200424000 /* loadSDK */;
-			targetProxy = CD6D3B5021119BCC00424000 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		06B2B1B31BE8F0D900E0CC85 /* Main.storyboard */ = {
@@ -1346,24 +1301,6 @@
 			};
 			name = Release;
 		};
-		CD6D3B4C21119B8200424000 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 35A6KD62ZJ;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		CD6D3B4D21119B8200424000 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 35A6KD62ZJ;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1390,15 +1327,6 @@
 			buildConfigurations = (
 				C364940A1E6E8CA600299E99 /* Debug */,
 				C364940B1E6E8CA600299E99 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CD6D3B4E21119B8200424000 /* Build configuration list for PBXAggregateTarget "loadSDK" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CD6D3B4C21119B8200424000 /* Debug */,
-				CD6D3B4D21119B8200424000 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
