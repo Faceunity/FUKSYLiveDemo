@@ -65,12 +65,16 @@
     _quitLock = [[NSLock alloc] init];
     _capDev_q = dispatch_queue_create( "com.ksyun.capDev_q", DISPATCH_QUEUE_SERIAL);
     // init default property
+    
+//    kit.capPreset = AVCaptureSessionPreset1280x720;
+//    _kit.previewDimension = CGSizeMake(720,1280);
+//    _kit.streamDimension = CGSizeMake(360,640);
     _bInterrupt       = bInter;
     _captureState     = KSYCaptureStateIdle;
-    _capPreset        = AVCaptureSessionPreset640x480;
-    _videoFPS         = 15;
-    _previewDimension = CGSizeMake(640, 360);
-    _streamDimension  = CGSizeMake(640, 360);
+    _capPreset        = AVCaptureSessionPreset1280x720;
+    _videoFPS         = 30;
+    _previewDimension = CGSizeMake(720, 1280);
+    _streamDimension  = CGSizeMake(360, 640);
     _cameraPosition   = AVCaptureDevicePositionFront;
     _streamerMirrored = NO;
     _previewMirrored  = NO;
@@ -304,6 +308,7 @@
     // 采集到的画面上传GPU
     _vCapDev.videoProcessingCallback = ^(CMSampleBufferRef buf) {
         if ( selfWeak.videoProcessingCallback ){
+            
             selfWeak.videoProcessingCallback(buf);
         }
         [selfWeak.capToGpu processSampleBuffer:buf];
@@ -319,6 +324,7 @@
     // 采集被打断的事件回调
     _vCapDev.interruptCallback = ^(BOOL bInterrupt) {
         if (bInterrupt) {
+            
             [selfWeak appEnterBackground];
         }
         else {

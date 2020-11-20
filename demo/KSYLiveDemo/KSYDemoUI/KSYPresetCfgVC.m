@@ -116,6 +116,8 @@
     }
 
     if (vc){
+    
+        vc.modalPresentationStyle = 0;
         [self presentViewController:vc animated:true completion:nil];
     }
 }
