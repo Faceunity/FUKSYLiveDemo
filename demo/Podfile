@@ -1,4 +1,4 @@
-platform :ios, '7.0'
+platform :ios, '9.0'
 inhibit_all_warnings!
 use_frameworks!
 
@@ -24,6 +24,10 @@ target 'KSYLiveDemo' do
   # 只是ks3的库存放在国内的云盘上, 比从github clone速度快一些
   # pod 'libksygpulive_ks3/KSYGPUResource'
   # pod 'libksygpulive_ks3/libksygpulive'
+  
+  pod 'SVProgressHUD'
+  pod 'Nama', '~> 7.2.0'
+  
 end
 
 target 'KSYLiveDemo_Swift' do

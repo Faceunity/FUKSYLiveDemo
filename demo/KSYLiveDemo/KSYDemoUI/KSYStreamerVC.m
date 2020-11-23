@@ -21,8 +21,12 @@
 #import <CallKit/CallKit.h>
 #endif
 
-#import <FUAPIDemoBar/FUAPIDemoBar.h>
+/**faceU  */
+#import "FUAPIDemoBar.h"
 #import "FUManager.h"
+
+#import "FUTestRecorder.h"
+
 
 // 为防止将手机存储写满,限制录像时长为30s
 #define REC_MAX_TIME 30 //录制视频的最大时间，单位s
@@ -64,82 +68,60 @@
 
 @implementation KSYStreamerVC
 
+
+#pragma mark ------faceU-------
 - (void)processFaceUnityWithBuffer:(CMSampleBufferRef)buffer {
     
-    CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(buffer) ;
-    [[FUManager shareManager] renderItemsToPixelBuffer: pixelBuffer];
+    if ([FUManager shareManager].enabled) {
+        
+        [[FUTestRecorder shareRecorder] processFrameWithLog];
+        CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(buffer);
+        [[FUManager shareManager] renderItemsToPixelBuffer: pixelBuffer];
+    }
+    
 }
 
 
 -(FUAPIDemoBar *)demoBar {
     if (!_demoBar) {
-        _demoBar = [[FUAPIDemoBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 220, self.view.frame.size.width, 164)];
+        _demoBar = [[FUAPIDemoBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 194 - 37 - 50, self.view.frame.size.width, 194)];
         
-        _demoBar.itemsDataSource = [FUManager shareManager].itemsDataSource;
-        _demoBar.selectedItem = [FUManager shareManager].selectedItem ;
-        
-        _demoBar.filtersDataSource = [FUManager shareManager].filtersDataSource ;
-        _demoBar.beautyFiltersDataSource = [FUManager shareManager].beautyFiltersDataSource ;
-        _demoBar.filtersCHName = [FUManager shareManager].filtersCHName ;
-        _demoBar.selectedFilter = [FUManager shareManager].selectedFilter ;
-        [_demoBar setFilterLevel:[FUManager shareManager].selectedFilterLevel forFilter:[FUManager shareManager].selectedFilter] ;
-        
-        _demoBar.skinDetectEnable = [FUManager shareManager].skinDetectEnable;
-        _demoBar.blurShape = [FUManager shareManager].blurShape ;
-        _demoBar.blurLevel = [FUManager shareManager].blurLevel ;
-        _demoBar.whiteLevel = [FUManager shareManager].whiteLevel ;
-        _demoBar.redLevel = [FUManager shareManager].redLevel;
-        _demoBar.eyelightingLevel = [FUManager shareManager].eyelightingLevel ;
-        _demoBar.beautyToothLevel = [FUManager shareManager].beautyToothLevel ;
-        _demoBar.faceShape = [FUManager shareManager].faceShape ;
-        
-        _demoBar.enlargingLevel = [FUManager shareManager].enlargingLevel ;
-        _demoBar.thinningLevel = [FUManager shareManager].thinningLevel ;
-        _demoBar.enlargingLevel_new = [FUManager shareManager].enlargingLevel_new ;
-        _demoBar.thinningLevel_new = [FUManager shareManager].thinningLevel_new ;
-        _demoBar.jewLevel = [FUManager shareManager].jewLevel ;
-        _demoBar.foreheadLevel = [FUManager shareManager].foreheadLevel ;
-        _demoBar.noseLevel = [FUManager shareManager].noseLevel ;
-        _demoBar.mouthLevel = [FUManager shareManager].mouthLevel ;
-        
-        _demoBar.delegate = self;
+        _demoBar.mDelegate = self;
     }
     return _demoBar ;
 }
 
 /**      FUAPIDemoBarDelegate       **/
 
-- (void)demoBarDidSelectedItem:(NSString *)itemName {
-    
-    [[FUManager shareManager] loadItem:itemName];
+-(void)filterValueChange:(FUBeautyParam *)param{
+    [[FUManager shareManager] filterValueChange:param];
 }
 
-- (void)demoBarBeautyParamChanged {
-    
-    [FUManager shareManager].skinDetectEnable = _demoBar.skinDetectEnable;
-    [FUManager shareManager].blurShape = _demoBar.blurShape;
-    [FUManager shareManager].blurLevel = _demoBar.blurLevel ;
-    [FUManager shareManager].whiteLevel = _demoBar.whiteLevel;
-    [FUManager shareManager].redLevel = _demoBar.redLevel;
-    [FUManager shareManager].eyelightingLevel = _demoBar.eyelightingLevel;
-    [FUManager shareManager].beautyToothLevel = _demoBar.beautyToothLevel;
-    [FUManager shareManager].faceShape = _demoBar.faceShape;
-    [FUManager shareManager].enlargingLevel = _demoBar.enlargingLevel;
-    [FUManager shareManager].thinningLevel = _demoBar.thinningLevel;
-    [FUManager shareManager].enlargingLevel_new = _demoBar.enlargingLevel_new;
-    [FUManager shareManager].thinningLevel_new = _demoBar.thinningLevel_new;
-    [FUManager shareManager].jewLevel = _demoBar.jewLevel;
-    [FUManager shareManager].foreheadLevel = _demoBar.foreheadLevel;
-    [FUManager shareManager].noseLevel = _demoBar.noseLevel;
-    [FUManager shareManager].mouthLevel = _demoBar.mouthLevel;
-    
-    [FUManager shareManager].selectedFilter = _demoBar.selectedFilter ;
-    [FUManager shareManager].selectedFilterLevel = _demoBar.selectedFilterLevel;
+-(void)switchRenderState:(BOOL)state{
+    [FUManager shareManager].isRender = state;
 }
 
+-(void)bottomDidChange:(int)index{
+    if (index < 3) {
+        [[FUManager shareManager] setRenderType:FUDataTypeBeautify];
+    }
+    if (index == 3) {
+        [[FUManager shareManager] setRenderType:FUDataTypeStrick];
+    }
+    
+    if (index == 4) {
+        [[FUManager shareManager] setRenderType:FUDataTypeMakeup];
+    }
+    if (index == 5) {
+        [[FUManager shareManager] setRenderType:FUDataTypebody];
+    }
+}
 
 -(void)dealloc {
+    
     [[FUManager shareManager] destoryItems];
+    [self unregisterApplicationObservers];
+   
 }
 
 - (id) initWithCfg:(KSYPresetCfgView*)presetCfgView{
@@ -156,12 +138,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (self.kit == nil){
-        _kit = [[KSYGPUStreamerKit alloc] initWithDefaultCfg];
+        _kit = [[KSYGPUStreamerKit alloc] initWithInterruptCfg];
     }
     [self addSubViews];
-    [self addSwipeGesture];
-    [self addfoucsCursor];
+//    [self addSwipeGesture];
+//    [self addfoucsCursor];
     [self addPinchGestureRecognizer];
+    
+    [self registerApplicationObservers];
+    
     if (_presetCfgView.profileUI.selectedSegmentIndex){
         [self setCustomizeCfg];//自定义
     }else{//预设等级
@@ -184,10 +169,18 @@
         [selfWeak onBypassRecordStateChange:state];
     };
     
+    [[FUTestRecorder shareRecorder] setupRecord];
     
+    /**faceU  */
+    [[FUManager shareManager] loadFilter];
+    [FUManager shareManager].enabled = YES;
+    [FUManager shareManager].isRender = YES;
+    [FUManager shareManager].flipx = YES;
+    [FUManager shareManager].trackFlipx = YES;
     
-    [[FUManager shareManager] loadItems];
     [self.view addSubview:self.demoBar ];
+    /**faceU */
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -199,6 +192,7 @@
         [_kit startPreview:_bgView];
     }
 }
+
 
 - (void) addSwipeGesture{
     SEL onSwip =@selector(swipeController:);
@@ -459,9 +453,11 @@
 
 - (void) setCaptureCfg {
     _kit.cameraPosition = [self.presetCfgView cameraPos];
-    _kit.gpuOutputPixelFormat = [self.presetCfgView gpuOutputPixelFmt];
-    _kit.capturePixelFormat   = [self.presetCfgView gpuOutputPixelFmt];
+    _kit.gpuOutputPixelFormat = kCVPixelFormatType_32BGRA;
+    _kit.capturePixelFormat   = kCVPixelFormatType_32BGRA;
+    _kit.capPreset = AVCaptureSessionPreset1280x720;
     _kit.aCapDev.noiseSuppressionLevel = self.audioView.noiseSuppress;
+    _kit.videoFPS = 30;
     weakObj(self);
     _kit.videoProcessingCallback = ^(CMSampleBufferRef buf){
         selfWeak.ctrlView.lblStat.capFrames += 1; // 统计预览帧率(实际使用时不需要)
@@ -482,6 +478,16 @@
     };
     _kit.interruptCallback = ^(BOOL bInterrupt){
         // 在此处添加自定义图像采集被打断的处理 (比如接听电话等)
+        
+        if (bInterrupt) {
+            
+            [FUManager shareManager].enabled = NO;
+            
+        }else{
+            
+            [FUManager shareManager].enabled = YES;
+        }
+        
     };
 }
 
@@ -574,6 +580,7 @@
 
 #pragma mark -  state change
 - (void) onCaptureStateChange:(NSNotification *)notification{
+    
     NSLog(@"new capStat: %@", _kit.getCurCaptureStateName );
     if (_bOutputInfo){
         self.ctrlView.lblStat.text = [_kit getCurCaptureStateName];
@@ -852,6 +859,12 @@
 }
 - (void) onCameraToggle{ // see kit or block
     [_kit switchCamera];
+    
+    /**faceU 切换摄像头*/
+    [[FUManager shareManager] onCameraChange];
+    /**faceU */
+    
+    
     if (_kit.vCapDev && _kit.vCapDev.cameraPosition == AVCaptureDevicePositionBack) {
         [_ctrlView.btnFlash setEnabled:YES];
     }
@@ -1405,4 +1418,88 @@
         _kit.aePic = [[GPUImageUIElement alloc] initWithView:_decalBGView];
     }
 }
+
+
+#pragma mark ------------前后台通知------------------
+- (void)registerApplicationObservers
+{
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationWillEnterForeground)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationDidBecomeActive)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationWillResignActive)
+                                                 name:UIApplicationWillResignActiveNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationDidEnterBackground)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationWillTerminate)
+                                                 name:UIApplicationWillTerminateNotification
+                                               object:nil];
+}
+
+- (void)unregisterApplicationObservers
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:UIApplicationWillEnterForegroundNotification
+                                                      object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationDidBecomeActiveNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationWillResignActiveNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationDidEnterBackgroundNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationWillTerminateNotification
+                                                  object:nil];
+}
+
+- (void)applicationWillEnterForeground
+{
+    
+    [FUManager shareManager].enabled = YES;
+}
+
+- (void)applicationDidBecomeActive
+{
+    [FUManager shareManager].enabled = YES;
+}
+
+- (void)applicationWillResignActive
+{
+    [FUManager shareManager].enabled = NO;
+    
+}
+
+- (void)applicationDidEnterBackground
+{
+    [FUManager shareManager].enabled = NO;
+    
+}
+
+- (void)applicationWillTerminate
+{
+    [FUManager shareManager].enabled = NO;
+    
+}
+
 @end

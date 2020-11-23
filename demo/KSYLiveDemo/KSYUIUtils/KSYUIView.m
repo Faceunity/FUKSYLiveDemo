@@ -8,6 +8,15 @@
 
 #import "KSYUIView.h"
 
+
+#define IPHONE_X \
+({BOOL isPhoneX = NO;\
+if (@available(iOS 11.0, *)) {\
+isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom > 0.0;\
+}\
+(isPhoneX);})
+
+
 @implementation KSYUIView
 
 - (CGFloat)x{
@@ -104,6 +113,11 @@
     CGFloat xPos = [self getXStart];
     CGFloat step = _gap*2+btnW;
     CGFloat yPos = _yPos > self.height ? _yPos - self.height : _yPos;
+    
+    if (IPHONE_X) {
+        
+        yPos = yPos + 24;
+    }
     for (id item in subV) {
         if ([item isKindOfClass:[UIView class]]){
             UIView * v = item;
@@ -159,6 +173,7 @@
     
     CGFloat x = [self getXStart];
     CGFloat y = _yPos > self.height ? _yPos - self.height : _yPos;
+    
     CGFloat xPos[3] = {x, x+_gap*2+btnW, x+_gap*4+btnW*2};
     if (subV0){
         subV0.frame = CGRectMake(xPos[0], y, btnW, _btnH);

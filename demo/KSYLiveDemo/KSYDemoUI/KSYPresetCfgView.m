@@ -42,7 +42,7 @@
     _cameraPosUI    = [self addSegCtrlWithItems:@[@"前置",@"后置"]];
     _lblGpuPixFmtUI = [self addLable:@"像素格式"];
     _gpuPixFmtUI  = [self addSegCtrlWithItems:@[@"rgba",@"nv12", @"I420"]];
-    _gpuPixFmtUI.selectedSegmentIndex = 2;
+    _gpuPixFmtUI.selectedSegmentIndex = 0;
     _lblProfileUI = [self addLable:@"配置"];
     _profileUI = [self addSegCtrlWithItems:@[@"预设等级",@"自定义"]];
     _profileUI.selectedSegmentIndex = 0;
